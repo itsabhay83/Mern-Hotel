@@ -17,7 +17,7 @@ const About = () => {
         <div className='md:grid md:grid-cols-2 m-4 mt-12 sm:mt-20 sm:m-8 md:m-12 lg:m-28'>
           <div className='md:max-w-[90%]'>
             <h1 className='text-lg sm:text-2xl md:text-4xl lg:text-6xl text-wrap my-2'>
-              We <span className='font-bold'>provide solutions</span> to grow your business
+              We <span className='font-bold'>provide solutions</span> to grow your business.
             </h1>
             <p className='mt-4 md:mt-10 text-sm md:text-base'>
               Success begins with the right strategies. We empower businesses with innovative solutions, helping them scale, optimize operations, and achieve lasting growth.
