@@ -13,8 +13,10 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@civic/auth-web3": "^0.5.4",
     "@emailjs/browser": "^4.4.1",
     "@stripe/stripe-js": "^2.3.0",
+    "@tanstack/react-query": "^5.74.4",
     "axios": "^1.6.5",
     "react": "^18.2.0",
     "react-datepicker": "^4.25.0",
@@ -25,7 +27,8 @@
     "react-slick": "^0.29.0",
     "react-toastify": "^11.0.3",
     "slick-carousel": "^1.8.1",
-    "vercel": "^41.3.2"
+    "vercel": "^41.3.2",
+    "wagmi": "^2.15.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
@@ -42,4 +45,3 @@
     "vite": "^5.0.8"
   }
 }
-
