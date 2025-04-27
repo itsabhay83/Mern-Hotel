@@ -70,46 +70,48 @@ This will launch the Vite development server (e.g. on http://localhost:5173 by d
 
 
 # Features 
-### Full MERN Architecture: 
-1. React/Vite frontend and Node/Express backend with MongoDB (JavaScript end-to-end).
+ ### 1. Full MERN Architecture: 
+ - React/Vite frontend and Node/Express backend with MongoDB (JavaScript end-to-end).
 
-### User Authentication: 
-1. Secure signup and login system to access protected pages.
+ ### 2. User Authentication: 
+-  Secure signup and login system to access protected pages.
 
-### Hotel Browsing: 
-1. Browse hotels and cities; detailed hotel pages show available rooms.
+### 3. Hotel Browsing: 
+-  Browse hotels and cities; detailed hotel pages show available rooms.
 
-### Room Availability & Booking:
+ ### 4.  Room Availability & Booking:
 
-1. View room details (photos, description, price).
+- View room details (photos, description, price).
 
-2. Select dates and create bookings.
+- Select dates and create bookings.
 
-3. Backend checks for date collisions.
+- Backend checks for date collisions.
 
-### User Profile & Bookings:
+ ### 5. User Profile & Bookings:
 
-1. View "My Bookings" list.
+- View "My Bookings" list.
 
-2. See booking details and cancel bookings.
+- See booking details and cancel bookings.
 
-### Contact & Blog Pages: 
-Includes About, Contact form (with EmailJS), and Blog posts.
+### 6. Contact & Blog Pages: 
+- Includes About, Contact form (with EmailJS), and Blog posts.
 
-### Responsive UI:
- Built with TailwindCSS for mobile-friendly design, hero images, and slideshows.
-### Civic Web3 Wallet Integration:
+### 7.  Responsive UI:
+ - Built with TailwindCSS for mobile-friendly design, hero images, and slideshows.
+ ### 8.  Civic Auth & Web3 Wallet Integration:
 
-1. Users can connect via Civic Auth.
+- Users can login via Google , Github , Linkedln , facebook using **Civic Auth SDK**.
+- Integrated ***Civic Auth*** for secure, **decentralized login** with **embedded Ethereum and Solana wallets**.
+-  Positioned the app as a decentralized solution for bookings and payments, aligning with the future of **blockchain-enabled** applications.
 
 
-### Rich Component Library:
+### 9.  Rich Component Library:
 
-1. React Query (@tanstack/react-query)
+- React Query (@tanstack/react-query)
 
-2. Skeleton loaders
+- Skeleton loaders
 
-3. Toast notifications
+- Toast notifications
 
 
 
