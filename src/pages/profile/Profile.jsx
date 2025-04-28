@@ -1,143 +1,74 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import axiosInstance from "../../axios";
-import { toast } from "react-toastify";
+import WalletInfo from "../../components/wallet/walletInfo";
+import { useUser } from "@civic/auth-web3/react";
 
 const Profile = () => {
-  const location = useLocation();
-
-  const [email] = useState(location.state.email);
-  const [username, setUsername] = useState(location.state.username);
-  const [password, setPassword] = useState(null);
-  const [isAdmin] = useState(location.state.isAdmin);
+  const { user } = useUser();
+  const [showWallet, setShowWallet] = useState(false);
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []);
 
-  const updateProfile = async (e) => {
-    e.preventDefault();
-
-    const updatedUser = {};
-
-    username != location.state.username && (updatedUser["username"] = username);
-
-    if (password !== null && password !== "") {
-      if (password.length < 6) {
-        toast.error("Password must be more than 5 characters");
-        return;
-      }
-      updatedUser["password"] = password;
-    }
-
-    const size = Object.keys(updatedUser).length;
-
-    size > 0 &&
-      (await axiosInstance
-        .put(`api/users/`, updatedUser)
-        .then(() => {
-          toast.success("Profile Updated");
-          window.location.href = "/";
-        })
-        .catch((err) => {
-          toast.error("Something went wrong");
-          console.log(err);
-        }));
-  };
+  if (!user) return null;
 
   return (
-    <>
-      <section className="mt-12 sm:mt-20 sm:m-8 md:m-12">
-        <h3 className="my-5 text-center text-2xl sm:text-4xl lg:text-5xl font-bold uppercase ">
-          My Profile
-        </h3>
-        <p className="text-center sm:mx-28 md:mx-40 lg:mx-60 px-4">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, error
-          amet numquam iure provident voluptate esse quasi, veritatis totam
-          voluptas nostrum quisquam eum porro a pariatur veniam.
-        </p>
-      </section>
-
-      <div className="max-w-[95%] md:max-w-[90%] lg:max-w-[85%] m-auto mb-10 md:mb-28 mt-6">
-        <section className="grid sm:grid-cols-2 gap-4">
-          <div className="m-auto">
-            <img
-              src="/images/profile.png"
-              alt="profile"
-              width={300}
-              height={300}
-            />
-          </div>
-
-          <form
-            onSubmit={updateProfile}
-            className="p-4 flex flex-col gap-4 sm:gap-0 m-auto sm:m-0 "
-          >
-            <div className="flex mb-6">
-              <div className="m-auto sm:m-0 border">
-                <div className="flex flex-wrap">
-                  <span
-                    className={`px-4 py-2 min-[350px]::px-7 min-[350px]:py-4 ${
-                      isAdmin ? "opacity-20" : "bg-blue-500 text-white"
-                    }`}
-                  >
-                    Regular
-                  </span>
-                  <span
-                    className={`px-4 py-2 min-[350px]::px-7 min-[350px]:py-4 ${
-                      isAdmin ? "bg-red-500 text-white" : "opacity-20"
-                    }`}
-                  >
-                    Admin
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex flex-col">
-              <span className="text-gray-500">Email</span>
-              <input
-                className="pl-2 border border-gray-300 py-2 mt-1 rounded-md max-[350px]:w-48 w-72 md:w-80"
-                type="text"
-                value={email}
-                disabled
-              />
-            </div>
-
-            <div className="flex flex-col mt-4">
-              <span className="text-gray-500">Username</span>
-              <input
-                className="pl-2 border border-gray-300 py-2 mt-1 rounded-md max-[350px]:w-48 w-72 md:w-80"
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                minLength={2}
-                maxLength={10}
-              />
-            </div>
-
-            <div className="flex flex-col mt-4">
-              <span className="text-gray-500">Password</span>
-              <input
-                className="pl-2 border border-gray-300 py-2 mt-1 rounded-md max-[350px]:w-48 w-72 md:w-80"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                minLength={5}
-                maxLength={20}
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="max-[350px]:w-48 w-72 md:w-80 rounded-md py-2 mt-6 bg-green-500 text-white"
-            >
-              Submit
-            </button>
-          </form>
-        </section>
+    <section className="bg-gradient-to-t from-blue-50 to-white min-h-screen flex flex-col items-center py-10 px-4">
+      {/* Profile Header */}
+      <div className="text-center mb-8">
+        <h3 className="text-3xl font-bold text-gray-800 mb-1">My Profile</h3>
+        <p className="text-gray-500 text-sm">Manage your account and wallet details</p>
       </div>
-    </>
+
+      {/* Profile Card */}
+      <div className="w-full sm:w-[340px] bg-white shadow-lg rounded-2xl p-6 flex flex-col items-center space-y-4">
+        
+        {/* Profile Image */}
+        <div className="w-24 h-24">
+          <img
+            src={user.picture || "/images/profile.png"}
+            alt="Profile"
+            className="w-full h-full object-cover rounded-full shadow-sm border"
+          />
+        </div>
+
+        {/* User Details */}
+        <div className="text-center">
+          <h1 className="text-xl font-semibold text-gray-800">
+            {user.name || "No Name"}
+          </h1>
+          <p className="text-gray-600 text-sm mt-1">
+            Email: <span className="font-medium">{user.email || "No Email"}</span>
+          </p>
+        </div>
+
+        {/* Toggle Wallet Button */}
+        <button
+          onClick={() => setShowWallet(true)}
+          className="mt-4 px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md font-medium transition duration-200"
+        >
+          View Wallet
+        </button>
+      </div>
+
+      {/* Wallet Modal */}
+      {showWallet && (
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+          <div className="bg-white rounded-xl p-6 w-[90%] max-w-md shadow-2xl relative">
+            {/* Close Button */}
+            <button
+              onClick={() => setShowWallet(false)}
+              className="absolute top-2 right-2 text-gray-400 hover:text-gray-700 text-2xl"
+            >
+              &times;
+            </button>
+
+            {/* Wallet Info */}
+            <WalletInfo compact />
+          </div>
+        </div>
+      )}
+    </section>
   );
 };
 
