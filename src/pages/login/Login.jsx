@@ -1,25 +1,22 @@
-import { useEffect, useState,  } from "react";
+import { useEffect, useState } from "react";
 import { useUser } from "@civic/auth-web3/react";
 import { useNavigate } from "react-router-dom";
 import { handleGuestUser } from "../../components/HandleGuestUser";
 
 const Login = () => {
-  const { user, signIn, signOut } = useUser();
+  const { user, signIn } = useUser();
   const navigate = useNavigate();
   const [isSigningIn, setIsSigningIn] = useState(false);
 
   const handleSignIn = async () => {
     setIsSigningIn(true);
-    await signIn(); // Wait for Civic to handle sign-in
+    await signIn();
   };
 
-  
   useEffect(() => {
     if (user) {
-      
       navigate("/");
       window.location.reload();
-      
     }
   }, [user, navigate]);
 
@@ -33,7 +30,6 @@ const Login = () => {
       </div>
     );
   }
-  
 
   return (
     <section className="m-6 sm:m-8 md:m-12 mt-12 sm:mt-20 sm:grid sm:grid-cols-2 border">
