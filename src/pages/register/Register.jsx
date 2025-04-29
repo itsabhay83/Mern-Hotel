@@ -1,72 +1,66 @@
 import { useEffect, useState } from "react";
 import { useUser } from "@civic/auth-web3/react";
+import { useNavigate } from "react-router-dom";
 import { handleGuestUser } from "../../components/HandleGuestUser";
-import Home from "../home/Home";
 
 const Register = () => {
   const { user, signIn, signOut } = useUser();
-  const [showHome, setShowHome] = useState(false);
+  const navigate = useNavigate();
+  const [isSigningIn, setIsSigningIn] = useState(false);
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  }, []);
+  const handleSignIn = async () => {
+    setIsSigningIn(true);
+    await signIn();
+  };
 
   useEffect(() => {
     if (user) {
-      setShowHome(true); // After login, show the Home page
+      navigate("/");
+      window.location.reload();
     }
-  }, [user]);
+  }, [user, navigate]);
 
-  if (showHome) {
-    return <Home />;
+  if (isSigningIn || user) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="flex flex-col items-center">
+          <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+          <p className="mt-4 text-blue-600 font-medium animate-pulse">Registering...</p>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <section className="m-6 sm:m-8 md:m-12 mt-16 sm:mt-24 grid grid-cols-1 sm:grid-cols-2 rounded-xl overflow-hidden shadow-xl border border-gray-200">
-      <div className="hidden sm:block">
+    <section className="m-6 sm:m-8 md:m-12 mt-12 sm:mt-20 sm:grid sm:grid-cols-2 border">
+      <div className="max-[640px]:hidden sm:h-auto overflow-hidden">
         <img
           src="/images/login.jpg"
-          alt="Hotel Cover"
+          width={300}
+          height={300}
+          alt="cover"
           className="object-cover w-full h-full"
         />
       </div>
 
-      <div className="flex flex-col justify-center items-center p-8 md:p-16 bg-white">
-        <h1 className="text-3xl lg:text-4xl font-bold mb-8 text-indigo-600 text-center">
+      <div className="m-6 lg:m-28 lg:py-12 flex flex-col">
+        <h1 className="text-2xl lg:text-3xl font-semibold mb-7 lg:mb-10 text-[#908dcd]">
           Create your account
         </h1>
 
-        <div className="flex flex-col w-full gap-5">
-          {!user ? (
-            <button
-              onClick={signIn}
-              className="w-full py-3 rounded-lg bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition duration-300"
-            >
-              Sign in with Civic
-            </button>
-          ) : (
-            <button
-              onClick={signOut}
-              className="w-full py-3 rounded-lg bg-red-500 text-white font-semibold hover:bg-red-600 transition duration-300"
-            >
-              Sign out
-            </button>
-          )}
+        <button
+          onClick={handleSignIn}
+          className="w-full rounded-md py-2 mt-8 bg-[#4f46e5] text-white hover:bg-[#6661c7]"
+        >
+          Sign up with Civic
+        </button>
 
-          <div className="relative flex items-center justify-center my-4">
-            <span className="absolute px-4 bg-white text-gray-400 text-sm">
-              or
-            </span>
-            <div className="border-t w-full"></div>
-          </div>
-
-          <button
-            onClick={handleGuestUser}
-            className="w-full py-3 rounded-lg border-2 border-indigo-600 text-indigo-600 font-semibold hover:bg-indigo-50 transition duration-300"
-          >
-            Continue as Guest
-          </button>
-        </div>
+        <button
+          onClick={handleGuestUser}
+          className="w-full rounded-md py-2 mt-8 bg-[#4f46e5] text-white hover:bg-[#6661c7]"
+        >
+          Continue as Guest
+        </button>
       </div>
     </section>
   );
