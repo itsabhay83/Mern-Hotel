@@ -45,14 +45,14 @@ const Login = () => {
 
       <div className="m-6 lg:m-28 lg:py-12 flex flex-col">
         <h1 className="text-2xl lg:text-3xl font-semibold mb-7 lg:mb-10 text-[#908dcd]">
-          Sign in to your account
+        Log in to your account
         </h1>
 
         <button
           onClick={handleSignIn}
           className="w-full rounded-md py-2 mt-8 bg-[#4f46e5] text-white hover:bg-[#6661c7]"
         >
-          Sign in
+          Login
         </button>
 
         <button
